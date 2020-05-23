@@ -1,1 +1,1 @@
-./wa-apps/blog/plugins/[tolstoycomments]
+./wa-apps/blog/plugins/[dir:tolstoycomments]
