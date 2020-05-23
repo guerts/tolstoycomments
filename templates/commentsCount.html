@@ -1,0 +1,16 @@
+{function name="comm" number=0 after=0 split=0}
+    {$cases = [2, 0, 1, 1, 1, 2]}
+    {if ($number%100>4 && $number%100<20)}
+        {$af = '2'}
+    {else}
+        {$af = $cases[min($number%10, 5)]}
+    {/if}
+    {if $split}
+        {$number|cat:' '|cat:$after[$af]}
+    {else}
+        {$after[$af]}
+    {/if}
+{/function}
+<span class="tolstoy-comments-count hint">
+    {comm number=count($comments) after=['комментарий','комментария','комментариев'] split=1}
+</span>

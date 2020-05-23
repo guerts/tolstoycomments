@@ -1,0 +1,80 @@
+{if count($comments)}
+<noscript>
+    <style>
+        #tolstoy-comments-container {
+            margin: 0 0 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            max-height: 480px;
+            overflow: auto;
+        }
+        #tolstoy-comments-container > p {
+            font-weight: 600;
+        }
+        .tolstoy-comments li {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            background: rgb(229, 244, 245);
+            padding: 10px 14px 25px !important;
+        }
+        .tolstoy-comments li .username {
+            height: 22px;
+            overflow: hidden;
+            font-weight: 700;
+            color: #4db6ba;
+            word-break: break-word;
+        }
+        .tolstoy-comments li .text {
+            margin: 0 0 10px;
+            padding-top: 10px;
+        }
+        .tolstoy-comments li .date {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            opacity: 0.8;
+        }
+    </style>
+</noscript>
+<!-- Tolstoy Local Comments -->
+<section id="tolstoy-comments-container" class="tolstoy-comments comments" itemscope="" itemtype="http://schema.org/UserComments">
+    <p>Последние комментарии</p>
+    <ul>
+        {foreach $comments as $c}
+        <li>
+            <div class="tolstoy-credentials credentials">
+                <span class="username" itemprop="creator">{$c.name}</span>
+                <meta itemprop="commentTime" content="{$c.datetime|date_format:'Y-m-d\TH:i'}">
+                <span class="hint date" title="{$c.datetime|wa_datetime}">{$c.datetime|wa_datetime:"humandate"}</span>
+            </div>
+            <div class="tolstoy-message text" itemprop="commentText">{$c.message|regex_replace:'/<a.*?<\/a>/':''}</div>
+        </li>
+        {/foreach}
+    </ul>
+</section>
+<!-- /Tolstoy Local Comments -->
+{/if}
+
+{literal}
+<!-- Tolstoy Comments Init -->
+<script type="text/javascript">
+    !(function(w,d,s,l,x){w[l]=w[l]||[];w[l].t=w[l].t||new Date().getTime();var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=!0;j.src='//web.tolstoycomments.com/sitejs/app.js?i='+l+'&x='+x+'&t='+w[l].t;f.parentNode.insertBefore(j,f);})
+    (window,document,'script','tolstoycomments','{/literal}{$site_id}{literal}');
+</script>
+<!-- /Tolstoy Comments Init -->
+    
+<!-- Tolstoy Comments Widget -->
+<div class="tolstoycomments-feed"></div>
+<script type="text/javascript">
+    document.getElementById('tolstoy-comments-container').innerHTML = '';
+    window['tolstoycomments'] = window['tolstoycomments'] || [];
+    window['tolstoycomments'].push({
+    	action: 'init',
+    	values: {
+    		visible: true
+    	}
+    });
+</script>
+<!-- /Tolstoy Comments Widget -->
+{/literal}
